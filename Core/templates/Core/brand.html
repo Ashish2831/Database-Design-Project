@@ -1,0 +1,62 @@
+{% extends 'Core/index.html' %}
+{% load static %}
+
+{% block section %}
+<div class="brand_color">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titlepage">
+                    <h2>Our Products</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- brand -->
+<div class="brand">
+    <div class="brand-bg">
+        {% if categories %}
+        {% for category in categories %}
+        {% if category.deleted %}
+        {% else %}
+        <div class="container">
+            <h1 style="font-size: 60px;" class="card-title font-weight-bold text-center">{{ category }}</h1>
+            <div class="row">
+                {% if products %}
+                {% for product in products %}
+                {% if product.deleted %}
+                {% else %}
+                {% if product.category_id == category %}
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 margin">
+                    <div class="brand_box pt-5">
+                        <a href="{% url 'Show' category.id product.id %}"><img class="product_img" src="{{ product.image.url }}" alt="img" /></a>
+                        <h3>$<strong class="red">{{ product.price }}</strong></h3>
+                        <span>{{ product.name }}</span>
+                        <i><img src="{% static 'Core/images/star.png' %}" /></i>
+                        <i><img src="{% static 'Core/images/star.png' %}" /></i>
+                        <i><img src="{% static 'Core/images/star.png' %}" /></i>
+                        <i><img src="{% static 'Core/images/star.png' %}" /></i>
+                    </div>
+                </div>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 margin">
+                    <div class="brand_box pt-5">
+                        <span style="font-size: 40px;">No Products Available</span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<!-- end brand -->
+{% endblock section %}

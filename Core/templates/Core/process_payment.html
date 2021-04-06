@@ -1,0 +1,29 @@
+{% extends 'Core/index.html' %}
+{% load static %}
+
+{% block section %}
+<div class="brand_color">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titlepage">
+                    <h2>Paypal</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- brand -->
+<div class="brand container">
+    <h1>Make Payment</h1>
+    <h4>Pay with PayPal {{ amount }}</h4>
+    <div class="brand-bg">
+        <div style="text-align: center;">
+            {{ form.render }}
+        </div>
+    </div>
+</div>
+
+<!-- end brand -->
+{% endblock section %}

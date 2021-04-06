@@ -1,0 +1,79 @@
+{% extends 'Core/index.html' %}
+{% load static %}
+
+{% block style %}
+<style>
+    .error {
+        color: red;
+    }
+
+    label {
+        font-size: 25px;
+    }
+</style>
+{% endblock style %}
+
+{% block section %}
+<div class="brand_color">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titlepage">
+                    <h2>Registration</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-5">
+    {% if success %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <h2> {{ success }} </h2>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    <div class="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="main_form" action="" method="POST" NOVALIDATE>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <strong> {{ register.username.label_tag }} </strong> <br> {{ register.username }} <span class="error">{{ register.username.errors | striptags }}</span>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <strong> {{ register.email.label_tag }} </strong> <br> {{ register.email }} <span
+                                    class="error">{{ register.email.errors | striptags }}</span>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <strong> {{ register.first_name.label_tag }} </strong> <br> {{ register.first_name }}
+                                <span class="error">{{ register.first_name.errors | striptags }}</span>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <strong> {{ register.last_name.label_tag }} </strong> <br> {{ register.last_name }}
+                                <span class="error">{{ register.last_name.errors | striptags }}</span>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <strong> {{ register.password1.label_tag }} </strong> <br> {{ register.password1 }}
+                                <span class="error">{{ register.password1.errors | striptags }}</span>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <strong> {{ register.password2.label_tag }} </strong> <br> {{ register.password2 }}
+                                <span class="error">{{ register.password2.errors | striptags }}</span>
+                            </div>
+                            <div class=" col-md-12">
+                                <input class="btn btn-danger mt-2 font-weight-bold ml-3" type="reset" value="Clear">
+                                <input class="btn btn-primary mt-2 font-weight-bold mx-2" type="submit"
+                                    value="Register">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock section %}

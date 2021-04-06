@@ -1,0 +1,95 @@
+{% extends 'Core/index.html' %}
+{% load static %}
+
+{% block style %}
+<style>
+    label {
+        font-size: 25px;
+    }
+</style>
+{% endblock style %}
+
+{% block section %}
+{% if request.user.is_authenticated %}
+    <script>
+        window.location.href = '/'
+    </script>
+{% endif %}
+<div class="brand_color">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titlepage">
+                    <h2>Login</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-5">
+    {% if success %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <h4> {{ success }} </h4>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    {% if next %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <h4> The Page You Want To Visit is Login Protected. <strong>Please Login!!</strong> </h4>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    <div class="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="main_form mx-5" action="" method="POST" NOVALIDATE>
+                        {% csrf_token %}
+                        {% if form.errors %}
+                            <h2 style="color:rgb(255, 8, 8);">Please enter a correct username and password. Note that both fields may be case-sensitive.</h2>
+                        {% endif %}
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <strong> {{ form.username.label_tag }} </strong> <br> {{ form.username }} 
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <strong> {{ form.password.label_tag }} </strong> <br> {{ form.password }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <input class="btn btn-danger mt-2 font-weight-bold ml-3" type="reset" value="Clear">
+                                <input class="btn btn-primary mt-2 font-weight-bold mx-2" type="submit" value="Login">
+                                <input type="hidden" name="next" value="{{ next }}"/>
+                            </div>
+                            <div class="col-md-6 col-sm-12 text-sm-left text-md-right">
+                                <a class="btn btn-secondary mt-2 font-weight-bold ml-3"  href="{% url 'password_reset' %}">Forgot Password</a>
+                            </div>
+                        </div>
+                        <div class="row my-4">
+                            <div class="col-md-4 col-sm-12">
+                                <h2>Don't Have An Account?</h2>
+                            </div>
+                            <div class="col-md-8 col-sm-12">
+                                <h2><a class="btn btn-outline-success" href="{% url 'Register' %}">Sign Up</a></h2>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock section %}
+
+{% block script %}
+<script>
+    $(document).ready(function () {
+        $("#id_username, #id_password").addClass('form-control')
+    });
+</script>
+{% endblock script %}

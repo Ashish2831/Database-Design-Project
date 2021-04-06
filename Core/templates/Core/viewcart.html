@@ -1,0 +1,77 @@
+{% extends 'Core/index.html' %}
+{% load static %}
+
+{% block section %}
+<div class="brand">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="titlepage">
+                    <h2>Your Cart</h2>
+                </div>
+            </div>
+            <div class="col-md-2 mt-4">
+                {% if categories %}
+                <a class="btn btn-danger font-weight-bold" href="{% url 'EmptyCart' %}">Make Cart Empty</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="brand-bg">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h2> {{ message }} </h2>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+        {% endif %}
+        {% if categories %}
+        {% for category in categories %}
+        <div class="container">
+            <h1 style="font-size: 60px;" class="card-title font-weight-bold text-center">{{ category }}</h1>
+            <div class="row">
+                {% if products %}
+                {% for product in products %}
+                {% if product.deleted %}
+                {% else %}
+                {% if product.category_id == category %}
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="brand_box">
+                        <div class="text-right"><a href="{% url 'DeleteProduct' category.id product.id %}"
+                            class="btn delete"><i style="font-size:40px;" class="fa fa-trash"></i></a></div>
+                        <a href="{% url 'Show' category.id product.id %}"><img class="product_img" src="{{ product.image.url }}" 
+                                alt="img" /></a>
+                        <h3>$<strong class="red">{{ product.price }}</strong></h3>
+                        <span>{{ product.name }}</span>
+                        <i><img src="{% static 'Core/images/star.png' %}" /></i>
+                        <i><img src="{% static 'Core/images/star.png' %}" /></i>
+                        <i><img src="{% static 'Core/images/star.png' %}" /></i>
+                        <i><img src="{% static 'Core/images/star.png' %}" /></i>
+                    </div>
+                </div>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 margin">
+                    <div class="brand_box pt-5">
+                        <span style="font-size: 40px;">No Products Available</span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 margin">
+            <div class="brand_box pt-5">
+                <span style="font-size: 40px;">Your Cart is Empty</span>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock section %}
